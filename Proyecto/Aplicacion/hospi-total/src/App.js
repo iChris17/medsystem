@@ -1,26 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Login from './components/login/login'
+import Fondo from '../src/images/medical-563427.jpg';
+import "./components/styles/login.css"
+import 'materialize-css/dist/css/materialize.min.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Hospi Total Comienza Acá
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return ( 
+    <div className = "App">
+        <Login />
+        </div>
+    );
 }
 
 export default App;
