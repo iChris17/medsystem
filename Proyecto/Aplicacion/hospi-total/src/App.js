@@ -1,14 +1,13 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import 'materialize-css/dist/css/materialize.min.css'
-import '@material-ui/icons/Menu'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-import Home from './components/home/home'
+import Sidebar from '../src/components/sidebar/sidebar';
 function App() {
     return ( 
         <div className="App">
-            <Home></Home>
+            <Sidebar></Sidebar>
         </div>
     );
 }
