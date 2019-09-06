@@ -114,7 +114,7 @@ class MedSystem extends Component {
                     ) : (
                         <div className={classes.map}>{switchRoutes}</div>
                     )}
-                    {this.getRoute() ? <Footer /> : null}
+                    
                     
                 </div>
             </div>

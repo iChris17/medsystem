@@ -12,11 +12,11 @@ const listpacients = ({ pacientes, eliminaPaciente }) => {
         <h2 className="card-title text-center">{Mensaje}</h2>
         <div className="lista-citas">
           <div className="media mt-3">
-            <div className="media-body">
+            <div className="media-body table-responsive" >
               <table className="table">
                 <thead>
                   <tr>
-                    <th scope="col">ID</th>
+                    <th scope="col" >ID</th>
                     <th scope="col">Nombre Completo</th>
                     <th scope="col">Identificacion</th>
                     <th scope="col">Telefono</th>
