@@ -4,6 +4,8 @@ import CalendaToday from '@material-ui/icons/CalendarToday';
 // core components/views for Admin layout
 import Home from './views/home';
 import Citas from './views/citas';
+import Pacientes from './views/PacienteComponente';
+import PersonIcon from '@material-ui/icons/Person';
 
 const dashboardRoutes = [
   {
@@ -21,6 +23,14 @@ const dashboardRoutes = [
     icon: CalendaToday,
     component: Citas,
     layout: "/medsystem"
+  },
+  {
+    path:"/pacient",
+    name:"Pacientes",
+    rtlName:"لوحة القيادة",
+    icon:PersonIcon,
+    component:Pacientes,
+    layout:"/medsystem"
   }
 ];
 
