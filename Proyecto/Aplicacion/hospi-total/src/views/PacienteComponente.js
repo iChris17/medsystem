@@ -9,15 +9,36 @@ class PacienteComponente extends Component {
     pacientes: []
   };
 
-  componentDidMount() {
-    let promise = axios.get("http://localhost:9090/api/Patient/getALL");
+  async componentDidMount() {
+    let axiosConfig = {
+      method:"GET",
+      url:"http://localhost:9090/api/Patient/getALL",
+      headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          "Access-Control-Allow-Origin": "*",
+      }
+    };
+
+    const options ={
+
+    }
+    await axios.get("http://localhost:9090/api/Patient/getALL")
+    .then(e=>{
+      console.log(e.data);
+      this.setState({
+        pacientes: e.data
+      });
+    }).catch(e=>{console.log(e.message)});
+
+    /*let promise = axios.get("http://localhost:9090/api/Patient/getALL"
+    );
     var All;
     promise.then(e => {
       All = e.data;
       this.setState({
         pacientes: All
       });
-    });
+    }).catch(e=>{console.log('error de conexion')});*/
   }
 
   componentDidUpdate() {

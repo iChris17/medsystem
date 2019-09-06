@@ -50,17 +50,22 @@ class Pacient extends Component {
     const NuevoPaciente = { ...this.state.paciente };
     NuevoPaciente.pacientId = 0;
 
-    let promise = axios.post("http://localhost:9090/api/Patient/saveOrUpdate", {
-      data: NuevoPaciente,
-      headers: { "Access-Control-Allow-Origin": "http://localhost:3000" }
-    });
+    const dataJSON =`{"age": ${parseInt(NuevoPaciente.age)},"dni": "${NuevoPaciente.dni}","email": "${NuevoPaciente.email}","firstName": "${NuevoPaciente.firstName}","gender": "${NuevoPaciente.gender}","lastName": "${NuevoPaciente.lastName}","pacientId": ${NuevoPaciente.pacientId},"phone": "${NuevoPaciente.phone}"}`;
+    NuevoPaciente.age=Number(NuevoPaciente.age)
+    let data=JSON.stringify(NuevoPaciente)
+    console.log(data)
+
+    let promise = axios.post("http://localhost:9090/api/Patient/saveOrUpdate",NuevoPaciente);
 
     promise
       .then(e => {
-        console.log(e);
         this.props.crearNuevoPaciente(NuevoPaciente);
+        this.setState({ error: false });
       })
       .catch(e => {
+        console.log(e);
+        console.log(data);
+        console.log(e.message);
         this.setState({ error: true });
       });
 
@@ -144,6 +149,7 @@ class Pacient extends Component {
                   type="tel"
                   className="form-control"
                   name="phone"
+                  placeholder="Telefono*"
                   onChange={this.handleChange}
                   value={this.state.paciente.phone}
                 />
@@ -156,6 +162,7 @@ class Pacient extends Component {
                   type="email"
                   className="form-control"
                   name="email"
+                  placeholder="Email*"
                   onChange={this.handleChange}
                   value={this.state.paciente.email}
                 />
