@@ -2,25 +2,28 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { makeStyles } from "@material-ui/core/styles";
+import IconButton from "@material-ui/core/IconButton";
+import Button from "../assets/components/CustomButtons/Button";
 import Slide from "@material-ui/core/Slide";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
+import GridContainer from "../assets/components/Grid/GridContainer";
+import GridItem from "../assets/components/Grid/GridItem";
+import Card from "../assets/components/Card/Card";
+import CardBody from "../assets/components/Card/CardBody";
 
-import ChevronLeft from '@material-ui/icons/ChevronLeft';
-import ChevronRight from '@material-ui/icons/ChevronRight';
+import ChevronLeft from "@material-ui/icons/ChevronLeft";
+import ChevronRight from "@material-ui/icons/ChevronRight";
+
 import Close from "@material-ui/icons/Close";
 
-import GridContainer from '../assets/components/Grid/GridContainer'
-import GridItem from "../assets/components/Grid/GridItem";
-import Button from "../assets/components/CustomButtons/Button";
-import IconButton from "@material-ui/core/IconButton";
-import Card from "../assets/components/Card/Card";
-import CardHeader from "../assets/components/Card/CardHeader";
-import CardBody from "../assets/components/Card/CardBody";
-import Table from "../assets/components/Table/Table";
 import modalStyle from "../assets/jss/material-dashboard-react/modalStyle";
+import {Calendar as BigCalendar, momentLocalizer} from "react-big-calendar";
+import Toolbar from 'react-big-calendar/lib/Toolbar'
+import moment from "moment";
+import 'moment/locale/es';
 
 const styles = {
     cardCategoryWhite: {
@@ -59,6 +62,23 @@ let date = new Date();
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="down" ref={ref} {...props} />;
 });
+
+const localizer = momentLocalizer(moment);
+
+const messages = {
+    allDay: 'Todo el día',
+    previous: 'Previo',
+    next: 'Siguiente',
+    today: 'Hoy',
+    month: 'Mes',
+    week: 'Semana',
+    day: 'Día',
+    agenda: 'Agenda',
+    date: 'Fecha',
+    time: 'Hora',
+    event: 'Evento', // Or anything you want
+    showMore: total => `+ ${total} événement(s) supplémentaire(s)`
+};
 
 function ModalDialog(props) {
     const { onClose, selectedValue, open } = props;
@@ -116,6 +136,45 @@ function ModalDialog(props) {
     );
 }
 
+class CustomToolbar extends Toolbar {
+    render() {
+        return (
+            <div className='rbc-toolbar'>
+                <span className="rbc-btn-group">
+                    <Button color="primary" onClick={() => this.navigate('PREV')}>
+                        <ChevronLeft />
+                    </Button>
+                    <Button color="primary" onClick={() => this.navigate('TODAY')}>
+                        Hoy
+                    </Button>
+                    <Button color={"primary"} onClick={() => this.navigate('NEXT')}>
+                        <ChevronRight />
+                    </Button>
+                </span>
+                <span className="rbc-toolbar-label">{this.props.label}</span>
+                <span className="rbc-btn-group">
+                    <Button color="primary" onClick={this.view.bind(null, 'month')}>
+                        Mes
+                    </Button>
+                    <Button color="primary" onClick={this.view.bind(null, 'week')}>
+                        Semana
+                    </Button>
+                    <Button color={"primary"} onClick={this.view.bind(null, 'day')}>
+                        Día
+                    </Button>
+                    <Button color={"primary"} onClick={this.view.bind(null, 'agenda')}>
+                        Agenda
+                    </Button>
+                </span>
+            </div>
+        )
+    }
+    navigate = action => {
+        console.log(action);
+        this.props.onNavigate(action)
+    };
+}
+
 ModalDialog.propTypes = {
     onClose: PropTypes.func.isRequired,
     open: PropTypes.bool.isRequired,
@@ -125,75 +184,62 @@ class Citas extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            events: [],
             dateString: date.toLocaleDateString(),
             open: false
         };
     }
 
-    handleClickOpen = () => {
+    handleClickOpen = (slotInfo) => {
+        console.log(slotInfo);
         this.setState({open: true});
-    }
+    };
 
     handleClose = () => {
         this.setState({open: false});
     };
 
-    addDays = () => {
-        date.setDate(date.getDate() + 1);
-        this.setState({dateString: date.toLocaleDateString()});
+    addNewEvent = (e, slotInfo) => {
+
     };
 
-    subtractDays = () => {
-        date.setDate(date.getDate() - 1);
-        this.setState({dateString: date.toLocaleDateString()});
-    };
-
-    dateNow = () => {
-        date = new Date();
-        this.setState({dateString: date.toLocaleDateString()});
+    eventColors = event => {
+        let backgroundColor = "event-";
+        event.color
+            ? (backgroundColor = backgroundColor + event.color)
+            : (backgroundColor = backgroundColor + "default");
+        return {
+            className: backgroundColor
+        };
     };
 
     render() {
         return (
             <div>
-                <GridContainer>
-                    <GridItem xs={6}>
-                        <IconButton color={"primary"} onClick={this.subtractDays}>
-                            <ChevronLeft />
-                        </IconButton>
-                        <IconButton color={"primary"} className="left" onClick={this.addDays}>
-                            <ChevronRight />
-                        </IconButton>
-                        <Button color="info" className="center" onClick={this.dateNow}>
-                            Hoy
-                        </Button>
-                    </GridItem>
-                    <GridItem xs={6}>
-                        <Button color="success" onClick={this.handleClickOpen}>
-                            Agregar
-                        </Button>
-                        <ModalDialog onClose={this.handleClose} open={this.state.open} />
-                    </GridItem>
-                    <GridItem xs={12} sm={12} md={12}>
+                <GridContainer justify="center">
+                    <GridItem xs={12} sm={12} md={11}>
                         <Card>
-                            <CardHeader color="primary">
-                                <h4 className={useStyles.cardTitleWhite}>Fecha {this.state.dateString}</h4>
-                                <p className={useStyles.cardCategoryWhite}>
-                                    Programación de Citas
-                                </p>
-                            </CardHeader>
                             <CardBody>
-                                <Table
-                                    tableHeaderColor="info"
-                                    tableHead={["Paciente", "Médico", "Consultorio"]}
-                                    tableData={[
-                                        ["Carlos Iván Guadamuz", "Aldo Saenz", "Sala 1"]
-                                    ]}
+                                <BigCalendar
+                                    selectable
+                                    localizer={localizer}
+                                    events={this.state.events}
+                                    defaultView="month"
+                                    scrollToTime={new Date(1970, 1, 1, 6)}
+                                    defaultDate={new Date()}
+                                    onSelectEvent={event => this.selectedEvent(event)}
+                                    onSelectSlot={slotInfo => this.handleClickOpen(slotInfo)}
+                                    eventPropGetter={this.eventColors}
+                                    messages={messages}
+                                    components={{
+                                        toolbar: CustomToolbar
+                                    }}
                                 />
                             </CardBody>
                         </Card>
                     </GridItem>
                 </GridContainer>
+                <ModalDialog onClose={this.handleClose} open={this.state.open} />
             </div>
         );
     }

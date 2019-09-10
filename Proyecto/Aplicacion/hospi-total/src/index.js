@@ -8,6 +8,7 @@ import MedSystem from './layout/medsystem';
 import * as serviceWorker from './serviceWorker';
 import './includes/bootstrap';
 import './assets/css/material-dashboard.css';
+//import './assets/scss/material-dashboard-pro-react.scss';
 
 const hist = createBrowserHistory();
 
