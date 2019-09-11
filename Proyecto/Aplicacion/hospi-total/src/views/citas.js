@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import DateFnsUtils from '@date-io/date-fns';
 import CustomToolbar from "../components/Calendar/Toolbar";
+import {
+    MuiPickersUtilsProvider,
+    KeyboardTimePicker,
+    KeyboardDatePicker,
+} from '@material-ui/pickers';
 
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "../assets/components/CustomButtons/Button";
+import CustomInput from "../assets/components/CustomInput/CustomInput";
 import Slide from "@material-ui/core/Slide";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -47,11 +54,26 @@ const messages = {
 };
 
 function ModalDialog(props) {
+    const [selectedDate, setSelectedDate] = React.useState(null);
     const { onClose, selectedValue, open } = props;
     const classes = modalStyles();
+    let value = "";
+
+    function handleDateChange(date) {
+        setSelectedDate(date);
+    }
 
     function handleClose() {
         onClose(selectedValue);
+    }
+
+    function handleSubmit(event) {
+        alert('A name was submitted: ' + value);
+        event.preventDefault();
+    }
+
+    function handleChange(event) {
+        value = event.target.value;
     }
 
     return (
@@ -60,6 +82,7 @@ function ModalDialog(props) {
                 root: classes.center,
                 paper: classes.modal
             }}
+            maxWidth={"sm"}
             open={open}
             transition={Transition}
             keepMounted
@@ -82,13 +105,55 @@ function ModalDialog(props) {
                 >
                     <Close className={classes.modalClose} />
                 </Button>
-                <h4 className={classes.modalTitle}>Modal title</h4>
+                <h4 className={classes.modalTitle}>Programe una Nueva Cita</h4>
             </DialogTitle>
             <DialogContent
                 id="modal-slide-description"
                 className={classes.modalBody}
             >
-                <h5>Are you sure you want to do this?</h5>
+                <form>
+                    <CustomInput
+                        labelText="Password"
+                        id="password"
+                        formControlProps={{
+                            fullWidth: true
+                        }}
+                        inputProps={{
+                            type: "text",
+                            autoComplete: "off"
+                        }}
+                    />
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <KeyboardDatePicker
+                            disableToolbar
+                            variant="inline"
+                            format="MM/dd/yyyy"
+                            margin="normal"
+                            id="date-picker-inline"
+                            label="Fecha"
+                            value={selectedDate}
+                            onChange={handleDateChange}
+                            KeyboardButtonProps={{
+                                'aria-label': 'change date',
+                            }}
+
+                        />
+                        <KeyboardTimePicker
+                            margin="normal"
+                            id="time-picker"
+                            label="Hora"
+                            value={selectedDate}
+                            onChange={handleDateChange}
+                            KeyboardButtonProps={{
+                                'aria-label': 'change time',
+                            }}
+                        />
+                    </MuiPickersUtilsProvider>
+
+                    <Button onClick={event => handleSubmit(event)}>
+
+                    </Button>
+                </form>
             </DialogContent>
             <DialogActions
                 className={classes.modalFooter + " " + classes.modalFooterCenter}
