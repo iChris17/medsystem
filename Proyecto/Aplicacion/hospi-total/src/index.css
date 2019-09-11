@@ -170,11 +170,6 @@ button.rbc-input::-moz-focus-inner {
   margin: 0 0 0 2px;
   border-radius: 30px;
 }
-@media screen and (max-width: 526px) {
-  .rbc-btn-group button {
-    margin: 2px !important;
-  }
-}
 
 .rbc-btn-group button + button {
   margin: 0 0 0 2px;
@@ -699,9 +694,33 @@ button.rbc-input::-moz-focus-inner {
   max-height: unset !important;
 }
 
+#toolbar-2 {
+  display: none;
+}
 
-@media (max-width: 960px) {
-  .left {
-    margin-left: -100px;
+
+@media (max-width: 1024px) {
+  #toolbar-1 {
+    margin-left: -20px !important;
+  }
+  #toolbar-2 {
+    top: 8px;
+    right: 10px;
+    display: initial;
+    position: absolute;
+    border-radius: 30px !important;
+    z-index: 99;
+  }
+
+  .views {
+    display: none !important;
+  }
+
+  .border-radius-button {
+    margin: 0 !important;
+  }
+
+  .up {
+    z-index: 100;
   }
 }

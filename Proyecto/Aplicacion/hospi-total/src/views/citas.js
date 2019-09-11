@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import CustomToolbar from "../components/Calendar/Toolbar";
 
 import { makeStyles } from "@material-ui/core/styles";
-import IconButton from "@material-ui/core/IconButton";
 import Button from "../assets/components/CustomButtons/Button";
 import Slide from "@material-ui/core/Slide";
 import Dialog from "@material-ui/core/Dialog";
@@ -14,48 +14,13 @@ import GridItem from "../assets/components/Grid/GridItem";
 import Card from "../assets/components/Card/Card";
 import CardBody from "../assets/components/Card/CardBody";
 
-import ChevronLeft from "@material-ui/icons/ChevronLeft";
-import ChevronRight from "@material-ui/icons/ChevronRight";
-
 import Close from "@material-ui/icons/Close";
 
 import modalStyle from "../assets/jss/material-dashboard-react/modalStyle";
 import {Calendar as BigCalendar, momentLocalizer} from "react-big-calendar";
-import Toolbar from 'react-big-calendar/lib/Toolbar'
 import moment from "moment";
 import 'moment/locale/es';
 
-const styles = {
-    cardCategoryWhite: {
-        "&,& a,& a:hover,& a:focus": {
-            color: "rgba(255,255,255,.62)",
-            margin: "0",
-            fontSize: "14px",
-            marginTop: "0",
-            marginBottom: "0"
-        },
-        "& a,& a:hover,& a:focus": {
-            color: "#FFFFFF"
-        }
-    },
-    cardTitleWhite: {
-        color: "#FFFFFF",
-        marginTop: "0px",
-        minHeight: "auto",
-        fontWeight: "300",
-        fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-        marginBottom: "3px",
-        textDecoration: "none",
-        "& small": {
-            color: "#777",
-            fontSize: "65%",
-            fontWeight: "400",
-            lineHeight: "1"
-        }
-    }
-};
-
-const useStyles = makeStyles(styles);
 const modalStyles = makeStyles(modalStyle);
 let date = new Date();
 
@@ -77,7 +42,8 @@ const messages = {
     date: 'Fecha',
     time: 'Hora',
     event: 'Evento', // Or anything you want
-    showMore: total => `+ ${total} événement(s) supplémentaire(s)`
+    showMore: total => `+ ${total} eventos más`,
+    noEventsInRange: 'No hay eventos en este rango'
 };
 
 function ModalDialog(props) {
@@ -134,45 +100,6 @@ function ModalDialog(props) {
             </DialogActions>
         </Dialog>
     );
-}
-
-class CustomToolbar extends Toolbar {
-    render() {
-        return (
-            <div className='rbc-toolbar'>
-                <span className="rbc-btn-group">
-                    <Button color="primary" onClick={() => this.navigate('PREV')}>
-                        <ChevronLeft />
-                    </Button>
-                    <Button color="primary" onClick={() => this.navigate('TODAY')}>
-                        Hoy
-                    </Button>
-                    <Button color={"primary"} onClick={() => this.navigate('NEXT')}>
-                        <ChevronRight />
-                    </Button>
-                </span>
-                <span className="rbc-toolbar-label">{this.props.label}</span>
-                <span className="rbc-btn-group">
-                    <Button color="primary" onClick={this.view.bind(null, 'month')}>
-                        Mes
-                    </Button>
-                    <Button color="primary" onClick={this.view.bind(null, 'week')}>
-                        Semana
-                    </Button>
-                    <Button color={"primary"} onClick={this.view.bind(null, 'day')}>
-                        Día
-                    </Button>
-                    <Button color={"primary"} onClick={this.view.bind(null, 'agenda')}>
-                        Agenda
-                    </Button>
-                </span>
-            </div>
-        )
-    }
-    navigate = action => {
-        console.log(action);
-        this.props.onNavigate(action)
-    };
 }
 
 ModalDialog.propTypes = {
