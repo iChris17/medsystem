@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import DateFnsUtils from '@date-io/date-fns';
 import CustomToolbar from "../components/Calendar/Toolbar";
+import IntegrationDownshift from '../components/AutoComplete/AutoComplete';
 import {
     MuiPickersUtilsProvider,
     KeyboardTimePicker,
@@ -10,7 +11,6 @@ import {
 
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "../assets/components/CustomButtons/Button";
-import CustomInput from "../assets/components/CustomInput/CustomInput";
 import Slide from "@material-ui/core/Slide";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -53,27 +53,34 @@ const messages = {
     noEventsInRange: 'No hay eventos en este rango'
 };
 
+let events = [];
+let dateEvent = new Date();
+
 function ModalDialog(props) {
     const [selectedDate, setSelectedDate] = React.useState(null);
-    const { onClose, selectedValue, open } = props;
+    const { onClose, open } = props;
     const classes = modalStyles();
-    let value = "";
 
     function handleDateChange(date) {
-        setSelectedDate(date);
+        dateEvent.setHours(date.getHours());
+        setSelectedDate(dateEvent);
     }
 
     function handleClose() {
-        onClose(selectedValue);
+        onClose(false);
     }
 
-    function handleSubmit(event) {
-        alert('A name was submitted: ' + value);
-        event.preventDefault();
-    }
+    function handleSubmit() {
+        const event = {
+            title: "Nud-pro Launch",
+            start: selectedDate,
+            end: selectedDate,
+            allDay: false,
+            color: "rose"
+        };
 
-    function handleChange(event) {
-        value = event.target.value;
+        events.push(event);
+        onClose(false);
     }
 
     return (
@@ -112,33 +119,25 @@ function ModalDialog(props) {
                 className={classes.modalBody}
             >
                 <form>
-                    <CustomInput
-                        labelText="Password"
-                        id="password"
-                        formControlProps={{
-                            fullWidth: true
-                        }}
-                        inputProps={{
-                            type: "text",
-                            autoComplete: "off"
-                        }}
-                    />
+                    <IntegrationDownshift/>
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <KeyboardDatePicker
-                            disableToolbar
+                            disabled
                             variant="inline"
                             format="MM/dd/yyyy"
                             margin="normal"
                             id="date-picker-inline"
                             label="Fecha"
-                            value={selectedDate}
-                            onChange={handleDateChange}
+                            value={dateEvent}
                             KeyboardButtonProps={{
                                 'aria-label': 'change date',
+                                'color': 'primary',
+
                             }}
 
                         />
                         <KeyboardTimePicker
+                            color=""
                             margin="normal"
                             id="time-picker"
                             label="Hora"
@@ -146,22 +145,17 @@ function ModalDialog(props) {
                             onChange={handleDateChange}
                             KeyboardButtonProps={{
                                 'aria-label': 'change time',
+                                'color': 'primary'
                             }}
                         />
                     </MuiPickersUtilsProvider>
-
-                    <Button onClick={event => handleSubmit(event)}>
-
-                    </Button>
                 </form>
             </DialogContent>
             <DialogActions
                 className={classes.modalFooter + " " + classes.modalFooterCenter}
             >
-                <Button onClick={handleClose}>Never Mind</Button>
-                <Button onClick={handleClose} color="success">
-                    Yes
-                </Button>
+                <Button onClick={handleClose} color="danger">Cancelar</Button>
+                <Button onClick={handleSubmit} color="success">Guardar</Button>
             </DialogActions>
         </Dialog>
     );
@@ -169,21 +163,21 @@ function ModalDialog(props) {
 
 ModalDialog.propTypes = {
     onClose: PropTypes.func.isRequired,
-    open: PropTypes.bool.isRequired,
+    open: PropTypes.bool.isRequired
 };
 
 class Citas extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            events: [],
             dateString: date.toLocaleDateString(),
-            open: false
+            open: false,
+            date: Date()
         };
     }
 
     handleClickOpen = (slotInfo) => {
-        console.log(slotInfo);
+        dateEvent =  slotInfo.start;
         this.setState({open: true});
     };
 
@@ -191,7 +185,7 @@ class Citas extends Component {
         this.setState({open: false});
     };
 
-    addNewEvent = (e, slotInfo) => {
+    selectedEvent = (event) => {
 
     };
 
@@ -215,7 +209,7 @@ class Citas extends Component {
                                 <BigCalendar
                                     selectable
                                     localizer={localizer}
-                                    events={this.state.events}
+                                    events={events}
                                     defaultView="month"
                                     scrollToTime={new Date(1970, 1, 1, 6)}
                                     defaultDate={new Date()}
