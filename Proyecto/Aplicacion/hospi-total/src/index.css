@@ -640,7 +640,7 @@ button.rbc-input::-moz-focus-inner {
   font-size: 0.85em;
   border-radius: 2px;
   padding: 0;
-  background-color: #4caf50; /* default BACKGROUND color */
+  /*background-color: #4caf50; !* default BACKGROUND color *!*/
   font-weight: normal; /* undo jqui's ui-widget-header bold */
   text-align: right;
   border: none;
@@ -648,32 +648,32 @@ button.rbc-input::-moz-focus-inner {
   line-height: 1.2;
 }
 
-.rbc-event-event-azure {
+.event-azure {
   background-color: #00bcd4;
   box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14),
   0 7px 10px -5px rgba(0, 188, 212, 0.4);
 }
-.rbc-event-event-green {
+.event-green {
   background-color: #4caf50;
   box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14),
   0 7px 10px -5px rgba(76, 175, 80, 0.4);
 }
-.rbc-event-event-orange {
+.event-orange {
   background-color: #ff9800;
   box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14),
   0 7px 10px -5px rgba(255, 152, 0, 0.4);
 }
-.rbc-event-event-red {
+.event-red {
   background-color: #f44336;
   box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14),
   0 7px 10px -5px rgba(244, 67, 54, 0.4);
 }
-.rbc-event-event-rose {
+.event-rose {
   background-color: #e91e63;
   box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14),
   0 7px 10px -5px rgba(233, 30, 99, 0.4);
 }
-.rbc-event-event-default {
+.event-default {
   background-color: #999999;
   box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14),
   0 7px 10px -5px rgba(153, 153, 153, 0.4);
