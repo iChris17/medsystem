@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 import PerfectScrollbar from "perfect-scrollbar";
 import 'perfect-scrollbar/css/perfect-scrollbar.css';
@@ -30,6 +30,7 @@ const switchRoutes = (
             />
           );
         }
+        return null;
       })}
     </Switch>
 );
@@ -71,7 +72,8 @@ class MedSystem extends Component {
     };
     componentDidMount() {
         if (navigator.platform.indexOf("Win") > -1) {
-            const ps = new PerfectScrollbar(this.refs.mainPanel);
+            /*eslint no-unused-vars: [2, {"args": "after-used", "varsIgnorePattern": "[iI]gnored"}]*/
+            const psIgnored = new PerfectScrollbar(this.refs.mainPanel);
         }
         window.addEventListener("resize", this.resizeFunction);
     }
@@ -114,7 +116,7 @@ class MedSystem extends Component {
                     ) : (
                         <div className={classes.map}>{switchRoutes}</div>
                     )}
-                    {this.getRoute() ? <Footer /> : null}
+                    
                     
                 </div>
             </div>

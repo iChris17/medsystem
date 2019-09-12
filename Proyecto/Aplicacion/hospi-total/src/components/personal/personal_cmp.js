@@ -8,11 +8,14 @@ const stateinicial = {
     dni: "",
     phonenumber: "",
     email: "",
-    gender: ""
+    gender: "M",
+    status:1,
+    firstname:"",
+    tppersonal:1
   },
   error: false
 };
-
+const axios = require("axios");
 class Personal_cmp extends Component {
   state = {
     ...stateinicial
@@ -54,9 +57,35 @@ class Personal_cmp extends Component {
     }
 
     const Nuevopersonal = { ...this.state.personal };
-    Nuevopersonal.id = uuid();
+    Nuevopersonal.id = 0;
 
-    this.props.crearNuevaCita(Nuevopersonal);
+    const DataJson={
+      "email":Nuevopersonal.email,
+      "firstName":Nuevopersonal.firstname,
+      "gender":Nuevopersonal.gender,
+      "identification":Nuevopersonal.dni,
+      "lastName":Nuevopersonal.lastname,
+      "middleName":Nuevopersonal.middlename,
+      "personalId":Number(Nuevopersonal.id),
+      "phoneNumber":Nuevopersonal.phonenumber,
+      "status":Number(Nuevopersonal.status),
+      "tpPersonalId":Number(Nuevopersonal.tppersonal)
+    };
+  
+
+    let promise = axios.post("http://localhost:9090/api/personal/saveOrUpdate",DataJson);
+
+    promise
+      .then(e => {
+        this.props.crearNuevoPersonal(Nuevopersonal);
+        this.setState({ error: false });
+        console.log(e.data);
+      })
+      .catch(e => {
+        console.log(e);
+        console.log(e.message);
+        this.setState({ error: true });
+      });
 
     this.setState({ ...stateinicial });
   };
@@ -72,7 +101,7 @@ class Personal_cmp extends Component {
               </label>
               <div className="col-sm-8 col-lg-10">
                 <input
-                  id="mascota"
+                  id="firstname"
                   type="text"
                   className="form-control"
                   placeholder="Nombre"
@@ -107,7 +136,7 @@ class Personal_cmp extends Component {
               </label>
               <div className="col-sm-8 col-lg-4">
                 <input
-                  id="apellido"
+                  id="lastname"
                   type="text"
                   className="form-control"
                   placeholder="Apellido"
@@ -137,7 +166,7 @@ class Personal_cmp extends Component {
               <label className="col-sm-4 col-lg-2 col-form-label">E-mail</label>
               <div className="col-sm-8 col-lg-10">
                 <textarea
-                  id="sintomas"
+                  id="email"
                   className="form-control"
                   type="email"
                   name="email"
@@ -154,7 +183,7 @@ class Personal_cmp extends Component {
               </label>
               <div className="col-sm-8 col-lg-10">
                 <textarea
-                  id="telefono"
+                  id="phonenumber"
                   className="form-control"
                   name="phonenumber"
                   placeholder="Teléfono"

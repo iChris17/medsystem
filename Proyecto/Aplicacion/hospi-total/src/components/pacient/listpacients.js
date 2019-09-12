@@ -1,13 +1,13 @@
-import React from 'react';
-import Personal from '../personal/personal_view';
+import React from "react";
+import Paciente from "./viewpacients";
 
-const personal_list_cmp = ({Personals}) => {
+const listpacients = ({ pacientes, eliminaPaciente }) => {
   const Mensaje =
-    Object.keys(Personals).length === 0
+    Object.keys(pacientes).length === 0
       ? "No hay Pacientes"
-      : "Administra el personal aqui";
+      : "Administra los pacientes aqui";
   return (
-<div className="card mt-2 py-5">
+    <div className="card mt-2 py-5">
       <div className="card-body">
         <h2 className="card-title text-center">{Mensaje}</h2>
         <div className="lista-citas">
@@ -21,13 +21,16 @@ const personal_list_cmp = ({Personals}) => {
                     <th scope="col">Identificacion</th>
                     <th scope="col">Telefono</th>
                     <th scope="col">Email</th>
+                    <th scope="col">Edad</th>
+                    <th scope="col">Genero</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {Personals.map(personals => (
-                    <Personal
-                      key={personals.personalId}
-                      Personals={personals}
+                  {pacientes.map(pacientes => (
+                    <Paciente
+                      key={pacientes.pacientId}
+                      paciente={pacientes}
+                      eliminaPaciente={eliminaPaciente}
                     />
                   ))}
                 </tbody>
@@ -40,4 +43,4 @@ const personal_list_cmp = ({Personals}) => {
   );
 };
 
-export default personal_list_cmp;
+export default listpacients;
