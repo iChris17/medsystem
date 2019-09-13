@@ -2,21 +2,28 @@ import Personal_cmp from "../components/personal/personal_cmp";
 import React, { Component } from "react";
 import ListPersonals from "../components/personal/personal_list_cmp";
 
-
 const axios = require("axios");
 class Personal extends Component {
-  state={
-    personals:[]
+  state = {
+    personals: []
   };
   async componentDidMount() {
-
-    await axios.get("http://localhost:9090/api/personal/getALL")
-    .then(e=>{
-      console.log(e.data);
-      this.setState({
-        personals: e.data
+    await axios
+      .get("http://localhost:5000/api/Personals", {
+        auth: {
+          username: 'cguadamuz',
+          password: '123'
+        }
+        })
+      .then(e => {
+        console.log(e.data);
+        this.setState({
+          personals: e.data
+        });
+      })
+      .catch(e => {
+        console.log(e.message);
       });
-    }).catch(e=>{console.log(e.message)});
   }
   crearNuevoPersonal = datos => {
     const Personals = [...this.state.personals, datos];
@@ -30,16 +37,13 @@ class Personal extends Component {
       <div className="container">
         <div className="row">
           <div className="col-md-12 mx-auto">
-        <Personal_cmp crearNuevoPersonal={this.crearNuevoPersonal}/>
-        </div>
+            <Personal_cmp crearNuevoPersonal={this.crearNuevoPersonal} />
+          </div>
           <div className="mt-5 col-md-12 mx-auto">
-            <ListPersonals
-              Personals={this.state.personals}
-            />
+            <ListPersonals Personals={this.state.personals} />
           </div>
         </div>
       </div>
-      
     );
   }
 }
