@@ -1,0 +1,108 @@
+@font-face{
+    font-family: Roboto;
+    src: url(../../Fonts/Roboto/Roboto-Regular.ttf);
+}
+
+.divFondo{
+    background: url(../../images/medical-563427.jpg) no-repeat center;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    font-family: Roboto;
+}
+
+.divFondo .CuadroLogin{
+    background-color: white;
+    width: 320px;
+    height: 450px;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    padding: 50px 50px;
+    display: flex;
+    align-items: center;
+    flex-flow: wrap;
+    box-shadow: 3px 3px 10px #0672ca,-3px -3px 10px #0672ca;
+    filter: blur(0px)
+}
+
+
+.Logo img{
+width: 100px;
+height: 100px;
+position: absolute;
+top: 20px;
+left: calc(70% - 50px);
+display: block;
+}
+
+.Logo h1{
+    margin: 0;
+    padding: 0 20px 50px;
+    text-align: left;
+    font-size: 22px;
+    top: 120px;
+    display: block;
+}
+
+.Form label{
+    color: #8babc6;
+    font-size: 15px;
+    font-weight: bold;
+}
+.Form #tag{
+    text-align: end;
+    font-size: 15px;
+}
+
+.Form input{
+width: 100%;
+margin-bottom: 20px;
+border: none;
+border-bottom: 1px solid white;
+outline: none;
+height: 30px;
+color: black;
+font-size: 16px;
+}
+
+.buttons{
+    
+}
+.buttons input{
+    width: 100%;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.buttons input[type="submit"]{
+    border: none;
+    outline: none;
+    height: 45px;
+    background: #0672ca;
+    font-size: 18px;
+    border-radius: 20px;
+}
+
+.Form a{
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 20px;
+    color: darkgray;
+}
+
+.Form a:hover{
+    color: #0672ca;
+}
+
+.Form{
+    width: 100%;
+    
+}
+
+.Logo{
+    width: 100%;
+}
