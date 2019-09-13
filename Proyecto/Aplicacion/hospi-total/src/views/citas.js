@@ -28,6 +28,8 @@ import {Calendar as BigCalendar, momentLocalizer} from "react-big-calendar";
 import moment from "moment";
 import 'moment/locale/es';
 
+const axios = require("axios");
+
 const modalStyles = makeStyles(modalStyle);
 let date = new Date();
 
@@ -79,9 +81,8 @@ function ModalDialog(props) {
             color: "rose"
         };
 
-
-
         events.push(event);
+        console.log(events);
         onClose(false);
     }
 
@@ -176,12 +177,23 @@ class Citas extends Component {
             open: false,
             date: Date()
         };
-
-
     }
     
     async componentDidMount() {
-        await axios
+        await axios.get("http://localhost:59290/api/Appointments/agenda", {
+            auth: {
+                username: 'bily98',
+                password: '123'
+            }
+        })
+        .then(e => {
+            console.log(e);
+            e.data.forEach(res => {
+                console.log(res);
+                events.push(res);
+            });
+
+        }).catch(error => console.error(error));
     }
 
     handleClickOpen = (slotInfo) => {
