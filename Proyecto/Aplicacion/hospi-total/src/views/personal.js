@@ -1,6 +1,7 @@
 import Personal_cmp from "../components/personal/personal_cmp";
 import React, { Component } from "react";
 import ListPersonals from "../components/personal/personal_list_cmp";
+import GlobalConfig from '../variables/configuration'
 
 const axios = require("axios");
 class Personal extends Component {
@@ -9,10 +10,10 @@ class Personal extends Component {
   };
   async componentDidMount() {
     await axios
-      .get("http://localhost:59290/api/Personals", {
+      .get(`http://${GlobalConfig.IP}:${GlobalConfig.PORT}/api/Personals`, {
         auth: {
-          username: 'bily98',
-          password: '123'
+          username: GlobalConfig.USER,
+        password: GlobalConfig.PASS
         }
         })
       .then(e => {
