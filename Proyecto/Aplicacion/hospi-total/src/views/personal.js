@@ -9,9 +9,9 @@ class Personal extends Component {
   };
   async componentDidMount() {
     await axios
-      .get("http://localhost:5000/api/Personals", {
+      .get("http://localhost:59290/api/Personals", {
         auth: {
-          username: 'cguadamuz',
+          username: 'bily98',
           password: '123'
         }
         })

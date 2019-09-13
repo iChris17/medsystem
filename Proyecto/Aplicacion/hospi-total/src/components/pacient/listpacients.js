@@ -1,7 +1,7 @@
 import React from "react";
 import Paciente from "./viewpacients";
 
-const listpacients = ({ pacientes, eliminaPaciente }) => {
+const listpacients = ({ pacientes}) => {
   const Mensaje =
     Object.keys(pacientes).length === 0
       ? "No hay Pacientes"
@@ -10,13 +10,13 @@ const listpacients = ({ pacientes, eliminaPaciente }) => {
     <div className="card mt-2 py-5">
       <div className="card-body">
         <h2 className="card-title text-center">{Mensaje}</h2>
-        <div className="lista-citas">
+        <div className="lista-cpaciente">
           <div className="media mt-3">
             <div className="media-body table-responsive" >
               <table className="table">
                 <thead>
                   <tr>
-                    <th scope="col" >ID</th>
+                    <th scope="col" className="ocultarID" >ID</th>
                     <th scope="col">Nombre Completo</th>
                     <th scope="col">Identificacion</th>
                     <th scope="col">Telefono</th>
@@ -28,9 +28,9 @@ const listpacients = ({ pacientes, eliminaPaciente }) => {
                 <tbody>
                   {pacientes.map(pacientes => (
                     <Paciente
-                      key={pacientes.pacientId}
+                      key={pacientes.id}
                       paciente={pacientes}
-                      eliminaPaciente={eliminaPaciente}
+                      
                     />
                   ))}
                 </tbody>

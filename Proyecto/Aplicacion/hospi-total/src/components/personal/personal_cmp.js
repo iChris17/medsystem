@@ -21,9 +21,9 @@ class Personal_cmp extends Component {
     ...stateinicial
   };
   async componentDidMount() {    
-    let promise = axios.get("http://localhost:5000/api/TpPersonals", {
+    let promise = axios.get("http://localhost:59290/api/TpPersonals", {
       auth: {
-        username: 'cguadamuz',
+        username: 'bily98',
         password: '123'
       }
     });
@@ -35,7 +35,7 @@ class Personal_cmp extends Component {
       for (var value in dataSelect) {
         let options = document.createElement("option");
         options.text = dataSelect[value].name;
-        options.value=dataSelect[value].tpPersonalId;  
+        options.value=dataSelect[value].id;  
         console.log(options);
         select.add(options);
       }
@@ -84,7 +84,7 @@ class Personal_cmp extends Component {
     Nuevopersonal.id = 0;
 
     const DataJson={
-      idTpPersonal:null,
+      idTpPersonal:Number(Nuevopersonal.tppersonal),
       firstname:Nuevopersonal.firstname,
       middlename:Nuevopersonal.middlename,
       lastname:Nuevopersonal.lastname,
@@ -96,29 +96,17 @@ class Personal_cmp extends Component {
       dtRegistered: new Date(),
       usRegistered: ''
     };
-  
-    let promise = axios.post('http://localhost:5000/api/Personals', DataJson, {
+  console.log(DataJson);
+    let promise = axios.post('http://localhost:59290/api/Personals', DataJson, {
       auth: {
-        username: 'cguadamuz',
+        username: 'bily98',
         password: '123'
       }
     });
 
-    // fetch(url, {
-    //   method: 'POST',
-    //   body: JSON.stringify(DataJson),
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'Authorization': 'Basic ' + btoa('cguadamuz:123')
-    //   }
-    // }).then(res => res.json())
-    //     .catch(error => console.error(error))
-    //     .then(response => console.log(response));
-
-    // let promise = axios.post("http://localhost:9090/api/personal/saveOrUpdate",DataJson);
-
     promise
       .then(e => {
+        Nuevopersonal.id=e.data.id;
         this.props.crearNuevoPersonal(Nuevopersonal);
         this.setState({ error: false });
         console.log(e.data);
@@ -255,11 +243,11 @@ class Personal_cmp extends Component {
 
             <div className="form-group row">
               <label className="col-sm-4 col-lg-2 col-form-label">
-                Especialidad
+                Tipo Personal
               </label>
               <div className="col-sm-8 col-lg-4">
                 <select className="custom-select"
-                name="specialty"
+                name="tppersonal"
                 onChange={this.handleChange}>
                   <option></option>
                 </select>
