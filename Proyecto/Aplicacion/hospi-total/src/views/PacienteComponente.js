@@ -12,7 +12,7 @@ class PacienteComponente extends Component {
 
   async componentDidMount() {
 
-    await axios.get(`http://${GlobalConfig.IP}:${GlobalConfig.PORT}/api/pacients`,{  auth: {
+    await axios.get(`https://${GlobalConfig.IP}${GlobalConfig.PORT}/api/pacients`,{  auth: {
       username: GlobalConfig.USER,
       password: GlobalConfig.PASS
     }})

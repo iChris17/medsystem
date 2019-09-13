@@ -10,7 +10,7 @@ class Personal extends Component {
   };
   async componentDidMount() {
     await axios
-      .get(`http://${GlobalConfig.IP}:${GlobalConfig.PORT}/api/Personals`, {
+      .get(`https://${GlobalConfig.IP}${GlobalConfig.PORT}/api/Personals`, {
         auth: {
           username: GlobalConfig.USER,
         password: GlobalConfig.PASS

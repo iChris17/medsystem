@@ -31,7 +31,7 @@ class Login extends React.Component {
     e.preventDefault();
     console.log("submit");
 
-    let promise= axios.get(`http://${GlobalConfig.IP}:${GlobalConfig.PORT}/api/user`,{  auth: {
+    let promise= axios.get(`https://${GlobalConfig.IP}${GlobalConfig.PORT}/api/user`,{  auth: {
       username: GlobalConfig.USER,
       password: GlobalConfig.PASS
     }});

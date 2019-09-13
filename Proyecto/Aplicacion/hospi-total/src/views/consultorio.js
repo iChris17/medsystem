@@ -5,12 +5,12 @@ import GlobalConfig from '../variables/configuration';
 const axios = require("axios");
 class Consultorio extends Component {
   state = {
-    Consultorios: []
+    Consultorios: [] 
   };
 
   async componentDidMount() {
 
-    await axios.get(`http://${GlobalConfig.IP}:${GlobalConfig.PORT}/api/rooms`,{  auth: {
+    await axios.get(`https://${GlobalConfig.IP}${GlobalConfig.PORT}/api/rooms`,{  auth: {
       username: GlobalConfig.USER,
       password: GlobalConfig.PASS
     }})

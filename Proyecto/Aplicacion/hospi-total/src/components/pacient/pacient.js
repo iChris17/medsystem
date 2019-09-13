@@ -58,7 +58,7 @@ class Pacient extends Component {
     let data=JSON.stringify(NuevoPaciente)
     console.log(data)
 
-    let promise = axios.post(`http://${GlobalConfig.IP}:${GlobalConfig.PORT}/api/pacients`,NuevoPaciente,{auth: {
+    let promise = axios.post(`https://${GlobalConfig.IP}${GlobalConfig.PORT}/api/pacients`,NuevoPaciente,{auth: {
       username: GlobalConfig.USER,
       password: GlobalConfig.PASS
     }});

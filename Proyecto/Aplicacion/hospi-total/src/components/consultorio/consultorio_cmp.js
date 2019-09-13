@@ -28,7 +28,7 @@ class Consultorio_cmp extends Component {
   };
 
 componentDidMount(){
-  let promise = axios.get(`http://${GlobalConfig.IP}:${GlobalConfig.PORT}/api/Specialties`,{auth: {
+  let promise = axios.get(`https://${GlobalConfig.IP}${GlobalConfig.PORT}/api/Specialties`,{auth: {
     username: GlobalConfig.USER,
     password: GlobalConfig.PASS
   }});
@@ -68,7 +68,7 @@ componentDidMount(){
     Nuevoconsultorio.id=0;
     Nuevoconsultorio.idSpecialty=Number(Nuevoconsultorio.idSpecialty);
 console.log(Nuevoconsultorio);
-    let promise = axios.post(`http://${GlobalConfig.IP}:${GlobalConfig.PORT}/api/rooms`,Nuevoconsultorio,{auth: {
+    let promise = axios.post(`https://${GlobalConfig.IP}${GlobalConfig.PORT}/api/rooms`,Nuevoconsultorio,{auth: {
       username: GlobalConfig.USER,
       password: GlobalConfig.PASS
     }});

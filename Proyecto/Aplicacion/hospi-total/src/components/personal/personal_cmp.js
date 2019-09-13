@@ -21,7 +21,7 @@ class Personal_cmp extends Component {
     ...stateinicial
   };
   async componentDidMount() {    
-    let promise = axios.get(`http://${GlobalConfig.IP}:${GlobalConfig.PORT}/api/TpPersonals`, {
+    let promise = axios.get(`https://${GlobalConfig.IP}${GlobalConfig.PORT}/api/TpPersonals`, {
       auth: {
         username: GlobalConfig.USER,
         password: GlobalConfig.PASS
@@ -97,7 +97,7 @@ class Personal_cmp extends Component {
       usRegistered: ''
     };
   console.log(DataJson);
-    let promise = axios.post(`http://${GlobalConfig.IP}:${GlobalConfig.PORT}/api/Personals`, DataJson, {
+    let promise = axios.post(`https://${GlobalConfig.IP}${GlobalConfig.PORT}/api/Personals`, DataJson, {
       auth: {
         username: GlobalConfig.USER,
         password: GlobalConfig.PASS

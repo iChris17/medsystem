@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import DateFnsUtils from '@date-io/date-fns';
 import CustomToolbar from "../components/Calendar/Toolbar";
 import IntegrationDownshift from '../components/AutoComplete/AutoComplete';
+import GlobalConfig from '../variables/configuration';
 import {
     MuiPickersUtilsProvider,
     KeyboardTimePicker,
@@ -97,13 +98,13 @@ function ModalDialog(props) {
             usUpdated: null
         };
         
-        axios.post('http://localhost:59290/api/Appointments', (appointment), {
+        axios.post(`https://${GlobalConfig.IP}${GlobalConfig.PORT}/api/Appointments`, (appointment), {
             auth: {
                 username: 'bily98',
                 password: '123'
             }
         }).then(e => {
-            axios.get("http://localhost:59290/api/Appointments/agenda", {
+            axios.get(`https://${GlobalConfig.IP}${GlobalConfig.PORT}/api/Appointments/agenda`, {
                 auth: {
                     username: 'bily98',
                     password: '123'
@@ -269,7 +270,7 @@ class Citas extends Component {
     }
     
     async componentDidMount() {
-        await axios.get("http://localhost:59290/api/Appointments/agenda", {
+        await axios.get(`https://${GlobalConfig.IP}${GlobalConfig.PORT}/api/Appointments/agenda`, {
             auth: {
                 username: 'bily98',
                 password: '123'
@@ -289,7 +290,7 @@ class Citas extends Component {
 
         }).catch(error => console.error(error));
 
-        await axios.get("http://localhost:59290/api/Pacients", {
+        await axios.get(`https://${GlobalConfig.IP}${GlobalConfig.PORT}/api/Pacients`, {
             auth: {
                 username: 'bily98',
                 password: '123'
@@ -306,7 +307,7 @@ class Citas extends Component {
                 });
             }).catch(error => console.error(error));
 
-        await axios.get("http://localhost:59290/api/Rooms", {
+        await axios.get(`https://${GlobalConfig.IP}${GlobalConfig.PORT}/api/Rooms`, {
             auth: {
                 username: 'bily98',
                 password: '123'
@@ -323,7 +324,7 @@ class Citas extends Component {
             });
         }).catch(error => console.error(error));
 
-        await axios.get("http://localhost:59290/api/Personals", {
+        await axios.get(`https://${GlobalConfig.IP}${GlobalConfig.PORT}/api/Personals`, {
             auth: {
                 username: 'bily98',
                 password: '123'

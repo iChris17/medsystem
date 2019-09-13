@@ -1,8 +1,8 @@
 import React from 'react';
 
 let Config={
-    IP:"localhost",
-    PORT:"59290",
+    IP:"hospitotalapi20190913022829.",
+    PORT:"azurewebsites.net",
     USER:"bily98",
     PASS:"123"
 };
