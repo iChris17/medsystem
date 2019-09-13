@@ -21,7 +21,12 @@ class Personal_cmp extends Component {
     ...stateinicial
   };
   async componentDidMount() {    
-    let promise = axios.get("http://localhost:9090/api/tp/personal/getALL");
+    let promise = axios.get("http://localhost:5000/api/TpPersonals", {
+      auth: {
+        username: 'cguadamuz',
+        password: '123'
+      }
+    });
     let dataSelect;
     promise.then(d => {
       console.log(d.data);
@@ -30,14 +35,14 @@ class Personal_cmp extends Component {
       for (var value in dataSelect) {
         let options = document.createElement("option");
         options.text = dataSelect[value].name;
-        options.value=this.state.tppersonal;        
+        options.value=dataSelect[value].tpPersonalId;  
         console.log(options);
         select.add(options);
       }
     });
   }
   handleChange = e => {
-    //console.log(e.target.name + ":" + e.target.value);
+    console.log(e.target.name + ":" + e.target.value);
     this.setState({
       personal: {
         ...this.state.personal,
@@ -56,7 +61,8 @@ class Personal_cmp extends Component {
       dni,
       phonenumber,
       email,
-      gender
+      gender,
+      tppersonal
     } = this.state.personal;
     if (
       firstname.trim()==="" ||
@@ -65,7 +71,8 @@ class Personal_cmp extends Component {
       dni.trim() === "" ||
       phonenumber.trim() === "" ||
       email.trim() === "" ||
-      gender.trim() === ""
+      gender.trim() === "" ||
+      tppersonal === null
     ) {
       this.setState({
         error: true
@@ -77,20 +84,38 @@ class Personal_cmp extends Component {
     Nuevopersonal.id = 0;
 
     const DataJson={
-      "email":Nuevopersonal.email,
-      "firstName":Nuevopersonal.firstname,
-      "gender":Nuevopersonal.gender,
-      "identification":Nuevopersonal.dni,
-      "lastName":Nuevopersonal.lastname,
-      "middleName":Nuevopersonal.middlename,
-      "personalId":Number(Nuevopersonal.id),
-      "phoneNumber":Nuevopersonal.phonenumber,
-      "status":Number(Nuevopersonal.status),
-      "tpPersonalId":Number(Nuevopersonal.tppersonal)
+      idTpPersonal:null,
+      firstname:Nuevopersonal.firstname,
+      middlename:Nuevopersonal.middlename,
+      lastname:Nuevopersonal.lastname,
+      dni:Nuevopersonal.dni,
+      phonenumber:Nuevopersonal.phonenumber,
+      email: Nuevopersonal.email,
+      gender:Nuevopersonal.gender,
+      enabled:Number(Nuevopersonal.status),
+      dtRegistered: new Date(),
+      usRegistered: ''
     };
   
+    let promise = axios.post('http://localhost:5000/api/Personals', DataJson, {
+      auth: {
+        username: 'cguadamuz',
+        password: '123'
+      }
+    });
 
-    let promise = axios.post("http://localhost:9090/api/personal/saveOrUpdate",DataJson);
+    // fetch(url, {
+    //   method: 'POST',
+    //   body: JSON.stringify(DataJson),
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'Authorization': 'Basic ' + btoa('cguadamuz:123')
+    //   }
+    // }).then(res => res.json())
+    //     .catch(error => console.error(error))
+    //     .then(response => console.log(response));
+
+    // let promise = axios.post("http://localhost:9090/api/personal/saveOrUpdate",DataJson);
 
     promise
       .then(e => {
@@ -233,7 +258,10 @@ class Personal_cmp extends Component {
                 Especialidad
               </label>
               <div className="col-sm-8 col-lg-4">
-                <select className="custom-select">
+                <select className="custom-select"
+                name="specialty"
+                onChange={this.handleChange}>
+                  <option></option>
                 </select>
               </div>
             </div>

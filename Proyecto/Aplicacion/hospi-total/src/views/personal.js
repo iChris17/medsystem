@@ -9,7 +9,12 @@ class Personal extends Component {
   };
   async componentDidMount() {
     await axios
-      .get("http://localhost:9090/api/personal/getALL")
+      .get("http://localhost:5000/api/Personals", {
+        auth: {
+          username: 'cguadamuz',
+          password: '123'
+        }
+        })
       .then(e => {
         console.log(e.data);
         this.setState({
