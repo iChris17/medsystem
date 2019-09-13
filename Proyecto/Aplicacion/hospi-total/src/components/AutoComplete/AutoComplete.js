@@ -7,42 +7,8 @@ import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
 
-const suggestions = [
-    { label: 'Afghanistan' },
-    { label: 'Aland Islands' },
-    { label: 'Albania' },
-    { label: 'Algeria' },
-    { label: 'American Samoa' },
-    { label: 'Andorra' },
-    { label: 'Angola' },
-    { label: 'Anguilla' },
-    { label: 'Antarctica' },
-    { label: 'Antigua and Barbuda' },
-    { label: 'Argentina' },
-    { label: 'Armenia' },
-    { label: 'Aruba' },
-    { label: 'Australia' },
-    { label: 'Austria' },
-    { label: 'Azerbaijan' },
-    { label: 'Bahamas' },
-    { label: 'Bahrain' },
-    { label: 'Bangladesh' },
-    { label: 'Barbados' },
-    { label: 'Belarus' },
-    { label: 'Belgium' },
-    { label: 'Belize' },
-    { label: 'Benin' },
-    { label: 'Bermuda' },
-    { label: 'Bhutan' },
-    { label: 'Bolivia, Plurinational State of' },
-    { label: 'Bonaire, Sint Eustatius and Saba' },
-    { label: 'Bosnia and Herzegovina' },
-    { label: 'Botswana' },
-    { label: 'Bouvet Island' },
-    { label: 'Brazil' },
-    { label: 'British Indian Ocean Territory' },
-    { label: 'Brunei Darussalam' },
-];
+const axios = require("axios");
+let suggestions = [];
 
 function renderInput(inputProps) {
     const { InputProps, classes, ref, ...other } = inputProps;
@@ -73,19 +39,19 @@ renderInput.propTypes = {
 function renderSuggestion(suggestionProps) {
     const { suggestion, index, itemProps, highlightedIndex, selectedItem } = suggestionProps;
     const isHighlighted = highlightedIndex === index;
-    const isSelected = (selectedItem || '').indexOf(suggestion.label) > -1;
+    const isSelected = (selectedItem || '').indexOf(suggestion.firstname) > -1;
 
     return (
         <MenuItem
             {...itemProps}
-            key={suggestion.label}
+            key={index}
             selected={isHighlighted}
             component="div"
             style={{
                 fontWeight: isSelected ? 500 : 400,
             }}
         >
-            {suggestion.label}
+            {suggestion.firstname + ' ' + suggestion.lastname}
         </MenuItem>
     );
 }
@@ -96,7 +62,7 @@ renderSuggestion.propTypes = {
     itemProps: PropTypes.object.isRequired,
     selectedItem: PropTypes.string.isRequired,
     suggestion: PropTypes.shape({
-        label: PropTypes.string.isRequired,
+        firstname: PropTypes.string.isRequired,
     }).isRequired,
 };
 
@@ -109,7 +75,7 @@ function getSuggestions(value, { showEmpty = false } = {}) {
         ? []
         : suggestions.filter(suggestion => {
             const keep =
-                count < 5 && suggestion.label.slice(0, inputLength).toLowerCase() === inputValue;
+                count < 5 && suggestion.firstname.slice(0, inputLength).toLowerCase() === inputValue;
 
             if (keep) {
                 count += 1;
@@ -154,6 +120,16 @@ const useStyles = makeStyles(theme => ({
 export default function IntegrationDownshift() {
     const classes = useStyles();
 
+    axios.get("http://localhost:59290/api/Pacients", {
+        auth: {
+            username: 'bily98',
+            password: '123'
+        }
+    })
+    .then(e => {
+        suggestions = e.data;
+    }).catch(error => console.error(error));
+
     return (
         <div className={classes.root}>
             <Downshift id="downshift-simple">
@@ -168,7 +144,7 @@ export default function IntegrationDownshift() {
                       selectedItem,
                   }) => {
                     const { onBlur, onFocus, ...inputProps } = getInputProps({
-                        placeholder: 'Search for a country (start with a)',
+                        placeholder: 'Busque personas por nombre',
                     });
 
                     return (
@@ -176,7 +152,7 @@ export default function IntegrationDownshift() {
                             {renderInput({
                                 fullWidth: true,
                                 classes,
-                                label: 'Country',
+                                label: 'Nombre',
                                 InputLabelProps: getLabelProps({ shrink: true }),
                                 InputProps: { onBlur, onFocus },
                                 inputProps,
@@ -189,7 +165,7 @@ export default function IntegrationDownshift() {
                                             renderSuggestion({
                                                 suggestion,
                                                 index,
-                                                itemProps: getItemProps({ item: suggestion.label }),
+                                                itemProps: getItemProps({ item: (suggestion.firstname + ' ' + suggestion.lastname) }),
                                                 highlightedIndex,
                                                 selectedItem,
                                             }),
