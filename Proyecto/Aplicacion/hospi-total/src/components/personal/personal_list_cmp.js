@@ -4,7 +4,7 @@ import Personal from '../personal/personal_view';
 const personal_list_cmp = ({Personals}) => {
   const Mensaje =
     Object.keys(Personals).length === 0
-      ? "No hay Pacientes"
+      ? "No hay Personal ingresado"
       : "Administra el personal aqui";
   return (
 <div className="card mt-2 py-5">

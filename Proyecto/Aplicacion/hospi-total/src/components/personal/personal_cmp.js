@@ -20,7 +20,22 @@ class Personal_cmp extends Component {
   state = {
     ...stateinicial
   };
-
+  async componentDidMount() {    
+    let promise = axios.get("http://localhost:9090/api/tp/personal/getALL");
+    let dataSelect;
+    promise.then(d => {
+      console.log(d.data);
+      dataSelect = d.data;
+      let select = document.getElementsByTagName("select")[0];
+      for (var value in dataSelect) {
+        let options = document.createElement("option");
+        options.text = dataSelect[value].name;
+        options.value=this.state.tppersonal;        
+        console.log(options);
+        select.add(options);
+      }
+    });
+  }
   handleChange = e => {
     //console.log(e.target.name + ":" + e.target.value);
     this.setState({
@@ -35,6 +50,7 @@ class Personal_cmp extends Component {
     e.preventDefault();
 
     const {
+      firstname,
       middlename,
       lastname,
       dni,
@@ -43,6 +59,7 @@ class Personal_cmp extends Component {
       gender
     } = this.state.personal;
     if (
+      firstname.trim()==="" ||
       middlename.trim() === "" ||
       lastname.trim() === "" ||
       dni.trim() === "" ||
@@ -184,6 +201,7 @@ class Personal_cmp extends Component {
               <div className="col-sm-8 col-lg-10">
                 <textarea
                   id="phonenumber"
+                  type="tel"
                   className="form-control"
                   name="phonenumber"
                   placeholder="Teléfono"
@@ -193,7 +211,33 @@ class Personal_cmp extends Component {
               </div>
             </div>
             {/* form-group */}
+            <div className="form-group row">
+              <label className="col-sm-4 col-lg-2 col-form-label">Genero</label>
+              <div className="col-sm-8 col-lg-2">
+                <input
+                  id="gender"
+                  type="text"
+                  className="form-control"
+                  placeholder="M/F*"
+                  name="gender"
+                  required
+                  onChange={this.handleChange}
+                  value={this.state.personal.gender}
+                />
+              </div>
+            </div>
+            {/* form-group */}
 
+            <div className="form-group row">
+              <label className="col-sm-4 col-lg-2 col-form-label">
+                Especialidad
+              </label>
+              <div className="col-sm-8 col-lg-4">
+                <select className="custom-select">
+                </select>
+              </div>
+            </div>
+            {/* form-group */}
             <input
               type="submit"
               className="py-3 mt-2 btn btn-success btn-block"
