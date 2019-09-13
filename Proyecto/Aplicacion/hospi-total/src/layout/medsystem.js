@@ -10,7 +10,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import dashboardStyle from "../assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 
 import Navbar from "../assets/components/Navbars/Navbar.jsx";
-import Footer from "../assets/components/Footer/Footer.jsx";
 import Sidebar from "../assets/components/Sidebar/Sidebar.jsx";
 
 import logo from '../logo.svg';

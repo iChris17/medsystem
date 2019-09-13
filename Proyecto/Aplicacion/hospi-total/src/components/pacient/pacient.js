@@ -2,13 +2,14 @@ import React, { Component } from "react";
 
 const stateInicial = {
   paciente: {
-    firstName: "",
-    lastName: "",
+    firstname: "",
+    lastname: "",
     dni: "",
     phone: "",
     email: "",
     gender: "",
-    age: 0
+    age: 0,
+    usRegistered:'cacevedo'
   },
   error: false
 };
@@ -33,10 +34,10 @@ class Pacient extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    const { firstName, lastName, dni, gender, age } = this.state.paciente;
+    const { firstname, lastname, dni, gender, age } = this.state.paciente;
     if (
-      firstName.trim() === "" ||
-      lastName.trim() === "" ||
+      firstname.trim() === "" ||
+      lastname.trim() === "" ||
       dni.trim() === "" ||
       gender.trim() === "" ||
       age === 0
@@ -48,17 +49,22 @@ class Pacient extends Component {
     }
 
     const NuevoPaciente = { ...this.state.paciente };
-    NuevoPaciente.pacientId = 0;
+    NuevoPaciente.id = 0;
 
-    const dataJSON =`{"age": ${parseInt(NuevoPaciente.age)},"dni": "${NuevoPaciente.dni}","email": "${NuevoPaciente.email}","firstName": "${NuevoPaciente.firstName}","gender": "${NuevoPaciente.gender}","lastName": "${NuevoPaciente.lastName}","pacientId": ${NuevoPaciente.pacientId},"phone": "${NuevoPaciente.phone}"}`;
+    const dataJSON =`{"age": ${parseInt(NuevoPaciente.age)},"dni": "${NuevoPaciente.dni}","email": "${NuevoPaciente.email}","firstname": "${NuevoPaciente.firstname}","gender": "${NuevoPaciente.gender}","lastname": "${NuevoPaciente.lastname}","phone": "${NuevoPaciente.phone}",
+      "usRegistered":"${NuevoPaciente.usRegistered}"}`;
     NuevoPaciente.age=Number(NuevoPaciente.age)
     let data=JSON.stringify(NuevoPaciente)
     console.log(data)
 
-    let promise = axios.post("http://localhost:9090/api/Patient/saveOrUpdate",NuevoPaciente);
+    let promise = axios.post("http://localhost:59290/api/pacients",NuevoPaciente,{auth: {
+      username: 'bily98',
+      password: '123'
+    }});
 
     promise
       .then(e => {
+        NuevoPaciente.id=e.data.id;
         this.props.crearNuevoPaciente(NuevoPaciente);
         this.setState({ error: false });
       })
@@ -90,14 +96,14 @@ class Pacient extends Component {
               </label>
               <div className="col-sm-8 col-lg-9">
                 <input
-                  id="firstName"
+                  id="firstname"
                   type="text"
                   className="form-control"
                   placeholder="Primer Nombre*"
-                  name="firstName"
+                  name="firstname"
                   required
                   onChange={this.handleChange}
-                  value={this.state.paciente.firstName}
+                  value={this.state.paciente.firstname}
                 />
               </div>
             </div>
@@ -112,10 +118,10 @@ class Pacient extends Component {
                   type="text"
                   className="form-control"
                   placeholder="Apellido*"
-                  name="lastName"
+                  name="lastname"
                   required
                   onChange={this.handleChange}
-                  value={this.state.paciente.lastName}
+                  value={this.state.paciente.lastname}
                 />
               </div>
             </div>
