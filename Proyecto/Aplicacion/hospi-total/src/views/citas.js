@@ -79,6 +79,8 @@ function ModalDialog(props) {
             color: "rose"
         };
 
+
+
         events.push(event);
         onClose(false);
     }
@@ -174,6 +176,12 @@ class Citas extends Component {
             open: false,
             date: Date()
         };
+
+
+    }
+    
+    async componentDidMount() {
+        await axios
     }
 
     handleClickOpen = (slotInfo) => {
