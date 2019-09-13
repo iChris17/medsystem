@@ -26,7 +26,7 @@ const personal_list_cmp = ({Personals}) => {
                 <tbody>
                   {Personals.map(personals => (
                     <Personal
-                      key={personals.personalId}
+                      key={personals.id}
                       Personals={personals}
                     />
                   ))}

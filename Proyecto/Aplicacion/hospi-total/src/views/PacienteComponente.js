@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Paciente from "../components/pacient/pacient";
 import ListPaciente from "../components/pacient/listpacients";
+import GlobalConfig from '../variables/configuration';
 
 const axios = require("axios");
 
@@ -10,19 +11,11 @@ class PacienteComponente extends Component {
   };
 
   async componentDidMount() {
-    let axiosConfig = {
-      method:"GET",
-      url:"http://localhost:9090/api/Patient/getALL",
-      headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          "Access-Control-Allow-Origin": "*",
-      }
-    };
 
-    const options ={
-
-    }
-    await axios.get("http://localhost:9090/api/Patient/getALL")
+    await axios.get(`http://${GlobalConfig.IP}:${GlobalConfig.PORT}/api/pacients`,{  auth: {
+      username: GlobalConfig.USER,
+      password: GlobalConfig.PASS
+    }})
     .then(e=>{
       console.log(e.data);
       this.setState({
@@ -30,15 +23,6 @@ class PacienteComponente extends Component {
       });
     }).catch(e=>{console.log(e.message)});
 
-    /*let promise = axios.get("http://localhost:9090/api/Patient/getALL"
-    );
-    var All;
-    promise.then(e => {
-      All = e.data;
-      this.setState({
-        pacientes: All
-      });
-    }).catch(e=>{console.log('error de conexion')});*/
   }
 
   componentDidUpdate() {
@@ -56,7 +40,7 @@ class PacienteComponente extends Component {
     console.log(id);
 
     const pacientesActuales = [...this.state.pacientes];
-    const pacientes = pacientesActuales.filter(pac => pac.pacientId !== id);
+    const pacientes = pacientesActuales.filter(pac => pac.id !== id);
 
     this.setState({
       pacientes
@@ -73,7 +57,7 @@ class PacienteComponente extends Component {
           <div className="mt-5 col-md-12 mx-auto">
             <ListPaciente
               pacientes={this.state.pacientes}
-              eliminaPaciente={this.eliminaPaciente}
+              
             />
           </div>
         </div>

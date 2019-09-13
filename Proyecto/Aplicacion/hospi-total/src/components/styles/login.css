@@ -21,7 +21,7 @@
     position: absolute;
     transform: translate(-50%, -50%);
     box-sizing: border-box;
-    padding: 70px 30px;
+    padding: 50px 50px;
     display: flex;
     align-items: center;
     flex-flow: wrap;
@@ -35,15 +35,17 @@ width: 100px;
 height: 100px;
 position: absolute;
 top: 20px;
-left: calc(50% - 50px);
+left: calc(70% - 50px);
+display: block;
 }
 
 .Logo h1{
     margin: 0;
-    padding: 0 0 20px;
-    text-align: center;
+    padding: 0 20px 50px;
+    text-align: left;
     font-size: 22px;
     top: 120px;
+    display: block;
 }
 
 .Form label{
@@ -67,15 +69,19 @@ color: black;
 font-size: 16px;
 }
 
+.buttons{
+    
+}
 .buttons input{
     width: 100%;
-    margin-top: 20px;
+    margin-top: 10px;
+    text-align: center;
 }
 
 .buttons input[type="submit"]{
     border: none;
     outline: none;
-    height: 30px;
+    height: 45px;
     background: #0672ca;
     font-size: 18px;
     border-radius: 20px;
@@ -90,4 +96,13 @@ font-size: 16px;
 
 .Form a:hover{
     color: #0672ca;
+}
+
+.Form{
+    width: 100%;
+    
+}
+
+.Logo{
+    width: 100%;
 }

@@ -82,6 +82,10 @@ button.rbc-input::-moz-focus-inner {
   opacity: 0.3;
 }
 
+.ocultarID{
+  visibility:hidden;
+}
+
 .rbc-header {
   overflow: hidden;
   -webkit-flex: 1 0 0%;

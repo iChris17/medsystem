@@ -7,17 +7,11 @@ import MedSystem from './layout/medsystem';
 import * as serviceWorker from './serviceWorker';
 import './includes/bootstrap';
 import './assets/css/material-dashboard.css';
+import Login from './components/login/login';
 //import './assets/scss/material-dashboard-pro-react.scss';
 
-const hist = createBrowserHistory();
 
-ReactDOM.render(
-    <Router history={hist}>
-        <Switch>
-            <Route path="/medsystem" component={MedSystem} />
-            <Redirect from="/" to="/medsystem/home" />
-        </Switch>
-    </Router>,
+ReactDOM.render(<Login/>,
     document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change

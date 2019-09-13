@@ -10,16 +10,9 @@ import Pacientes from './views/PacienteComponente';
 import PersonIcon from '@material-ui/icons/Person';
 import Personal from './views/personal';
 import Consultorio from './views/consultorio';
+import Login from './components/login/login';
 
 const dashboardRoutes = [
-  {
-    path: "/home",
-    name: "Inicio",
-    rtlName: "لوحة القيادة",
-    icon: HomeSharp,
-    component: Home,
-    layout: "/medsystem"
-  },
   {
     path: "/citas",
     name: "Citas",
