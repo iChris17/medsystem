@@ -16,7 +16,7 @@ const listconsultorio = ({ consultorios }) => {
               <table className="table">
                 <thead>
                   <tr>
-                    <th scope="col" >ID</th>
+                    <th scope="col" className="ocultarID">ID</th>
                     <th scope="col">Nombre Consultorio</th>
                     <th scope="col">Codigo Consultorio</th>
                     <th scope="col">Especialidad</th>

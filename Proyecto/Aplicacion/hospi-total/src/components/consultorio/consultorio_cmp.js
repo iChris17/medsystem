@@ -1,10 +1,11 @@
 import React, { Component } from "react";
+import GlobalConfig from '../../variables/configuration';
 
 const stateinicial = {
   Consultorio: {
     name: "",
     code: "",
-    idSpecialty: "",
+    idSpecialty: 0,
     usRegistered:"cacevedo"
   },
   error: false
@@ -27,9 +28,9 @@ class Consultorio_cmp extends Component {
   };
 
 componentDidMount(){
-  let promise = axios.get("http://localhost:59290/api/Specialties",{auth: {
-    username: 'bily98',
-    password: '123'
+  let promise = axios.get(`http://${GlobalConfig.IP}:${GlobalConfig.PORT}/api/Specialties`,{auth: {
+    username: GlobalConfig.USER,
+    password: GlobalConfig.PASS
   }});
   let dataSelect;
   promise
@@ -65,7 +66,24 @@ componentDidMount(){
 
     const Nuevoconsultorio = { ...this.state.Consultorio };
     Nuevoconsultorio.id=0;
-    this.props.crearNuevoConsultorio(Nuevoconsultorio);
+    Nuevoconsultorio.idSpecialty=Number(Nuevoconsultorio.idSpecialty);
+console.log(Nuevoconsultorio);
+    let promise = axios.post(`http://${GlobalConfig.IP}:${GlobalConfig.PORT}/api/rooms`,Nuevoconsultorio,{auth: {
+      username: GlobalConfig.USER,
+      password: GlobalConfig.PASS
+    }});
+
+    promise
+      .then(e => {
+        Nuevoconsultorio.id=e.data.id;
+        this.props.crearNuevoConsultorio(Nuevoconsultorio);
+        this.setState({ error: false });
+      })
+      .catch(e => {
+        console.log(e);
+        console.log(e.message);
+        this.setState({ error: true });
+      });
 
     this.setState({ ...stateinicial });
   };

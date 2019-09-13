@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import GlobalConfig from '../../variables/configuration';
 
 const stateInicial = {
   paciente: {
@@ -57,9 +58,9 @@ class Pacient extends Component {
     let data=JSON.stringify(NuevoPaciente)
     console.log(data)
 
-    let promise = axios.post("http://localhost:59290/api/pacients",NuevoPaciente,{auth: {
-      username: 'bily98',
-      password: '123'
+    let promise = axios.post(`http://${GlobalConfig.IP}:${GlobalConfig.PORT}/api/pacients`,NuevoPaciente,{auth: {
+      username: GlobalConfig.USER,
+      password: GlobalConfig.PASS
     }});
 
     promise

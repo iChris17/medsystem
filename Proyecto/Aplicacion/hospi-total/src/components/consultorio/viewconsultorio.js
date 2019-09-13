@@ -20,7 +20,7 @@ const axios = require("axios");
 
     html += `
     <tr>
-        <th scope="row">${row.id}</th>
+        <th scope="row" style=visibility:hidden>${row.id}</th>
         <td>${row.name}</td>
         <td>${row.code}</td>
         <td>${row.idSpecialty}</td>

@@ -1,6 +1,7 @@
 import Consultio_cmp from "../components/consultorio/consultorio_cmp";
 import React, { Component } from "react";
 import ListConsultorio from "../components/consultorio/listconsultorio";
+import GlobalConfig from '../variables/configuration';
 const axios = require("axios");
 class Consultorio extends Component {
   state = {
@@ -9,9 +10,9 @@ class Consultorio extends Component {
 
   async componentDidMount() {
 
-    await axios.get("http://localhost:59290/api/rooms",{  auth: {
-      username: 'bily98',
-      password: '123'
+    await axios.get(`http://${GlobalConfig.IP}:${GlobalConfig.PORT}/api/rooms`,{  auth: {
+      username: GlobalConfig.USER,
+      password: GlobalConfig.PASS
     }})
     .then(e=>{
       console.log(e.data);

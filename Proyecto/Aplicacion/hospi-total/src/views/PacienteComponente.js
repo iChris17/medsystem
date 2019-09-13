@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Paciente from "../components/pacient/pacient";
 import ListPaciente from "../components/pacient/listpacients";
+import GlobalConfig from '../variables/configuration';
 
 const axios = require("axios");
 
@@ -11,9 +12,9 @@ class PacienteComponente extends Component {
 
   async componentDidMount() {
 
-    await axios.get("http://localhost:59290/api/pacients",{  auth: {
-      username: 'bily98',
-      password: '123'
+    await axios.get(`http://${GlobalConfig.IP}:${GlobalConfig.PORT}/api/pacients`,{  auth: {
+      username: GlobalConfig.USER,
+      password: GlobalConfig.PASS
     }})
     .then(e=>{
       console.log(e.data);

@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/login.css";
-
+import GlobalConfig from '../../variables/configuration';
 import Logo from "../../images/genral.png";
 import user from "../../images/icons8-contactos-26.png";
 import lock from "../../images/icons8-candado-2-26.png";
@@ -31,9 +31,9 @@ class Login extends React.Component {
     e.preventDefault();
     console.log("submit");
 
-    let promise= axios.get("http://localhost:59290/api/user",{  auth: {
-      username: 'bily98',
-      password: '123'
+    let promise= axios.get(`http://${GlobalConfig.IP}:${GlobalConfig.PORT}/api/user`,{  auth: {
+      username: GlobalConfig.USER,
+      password: GlobalConfig.PASS
     }});
 
     promise.then(e=>{

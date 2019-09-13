@@ -16,7 +16,7 @@ const listpacients = ({ pacientes}) => {
               <table className="table">
                 <thead>
                   <tr>
-                    <th scope="col" >ID</th>
+                    <th scope="col" className="ocultarID" >ID</th>
                     <th scope="col">Nombre Completo</th>
                     <th scope="col">Identificacion</th>
                     <th scope="col">Telefono</th>
