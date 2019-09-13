@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import uuid from "uuid";
+import GlobalConfig from '../../variables/configuration';
 
 const stateinicial = {
   personal: {
@@ -21,10 +21,10 @@ class Personal_cmp extends Component {
     ...stateinicial
   };
   async componentDidMount() {    
-    let promise = axios.get("http://localhost:59290/api/TpPersonals", {
+    let promise = axios.get(`http://${GlobalConfig.IP}:${GlobalConfig.PORT}/api/TpPersonals`, {
       auth: {
-        username: 'bily98',
-        password: '123'
+        username: GlobalConfig.USER,
+        password: GlobalConfig.PASS
       }
     });
     let dataSelect;
@@ -97,10 +97,10 @@ class Personal_cmp extends Component {
       usRegistered: ''
     };
   console.log(DataJson);
-    let promise = axios.post('http://localhost:59290/api/Personals', DataJson, {
+    let promise = axios.post(`http://${GlobalConfig.IP}:${GlobalConfig.PORT}/api/Personals`, DataJson, {
       auth: {
-        username: 'bily98',
-        password: '123'
+        username: GlobalConfig.USER,
+        password: GlobalConfig.PASS
       }
     });
 

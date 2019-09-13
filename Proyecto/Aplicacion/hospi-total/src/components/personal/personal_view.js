@@ -4,7 +4,7 @@ function RellenarTabla(row) {
   let html = "";
   html += `
       <tr>
-          <th scope="row">${row.id}</th>
+          <th scope="row" style=visibility:hidden>${row.id}</th>
           <td>${row.firstname + " " + row.lastname}</td>
           <td>${row.dni}</td>
           <td>${row.phonenumber}</td>
